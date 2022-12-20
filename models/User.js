@@ -9,21 +9,21 @@ const UserSchema = mongoose.Schema({
         type: String,
         required :  true
     },
-    // email: {
-    //     type: String,
-    //     required :  true,
-    //     unique: true,
-    //     validate: value => {
-    //         if (!validator.isEmail(value)) {
-    //             throw new Error({error: 'Invalid Email address'})
-    //         }
-    //     }
-    // },
-    // password: {
-    //     type: String,
-    //     required :  true,
-    //     minLength: 7
-    // },
+    email: {
+        type: String,
+        required :  true,
+        unique: true,
+        validate: value => {
+            if (!validator.isEmail(value)) {
+                throw new Error({error: 'Invalid Email address'})
+            }
+        }
+    },
+    password: {
+        type: String,
+        required :  false,
+        minLength: 7
+    },
     date: {
         type: Date,
         default: Date.now

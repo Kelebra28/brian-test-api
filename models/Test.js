@@ -11,6 +11,6 @@ const TestSchema = mongoose.Schema({
     }
 });
 
-const Test = mongoose.model('Place', TestSchema);
+const Test = mongoose.model('Test', TestSchema);
 
 module.exports = Test
