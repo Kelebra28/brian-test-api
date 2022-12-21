@@ -13,11 +13,11 @@ const UserSchema = mongoose.Schema({
         type: String,
         required :  true,
         unique: true,
-        validate: value => {
-            if (!validator.isEmail(value)) {
-                throw new Error({error: 'Invalid Email address'})
-            }
-        }
+        // validate: value => {
+        //     if (!validator.isEmail(value)) {
+        //         throw new Error({error: 'Invalid Email address'})
+        //     }
+        // }
     },
     password: {
         type: String,
@@ -28,10 +28,10 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    testResults:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Test'
-    }],
+    // testResults:[{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref:'Test'
+    // }],
     type: {
         type : String,
         required : true

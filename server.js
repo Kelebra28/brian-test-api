@@ -1,14 +1,40 @@
+// Dependecis
 const express = require('express')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const app = express()
-const port = process.env.PORT || 3000
-app.listen(port)
-// require('dotenv/config')
+require('dotenv').config()
+
+//Modules
+
+const useRouters = require('./controllers/user')
 
 
+const PORT = process.env.PORT || 3000
+
+app.use(bodyParser.json())
+app.use(cors())
+// Home Route
+app.get('/', (req, res) => res.send ('Home'))
+// Users Routes
+app.use('/api', useRouters)
 
 
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
-    console.log('All rigth to conecto DB')
-});
-console.log(`Sever in port: ${port}`)
+try {
+    // Connect to the MongoDB cluster
+     mongoose.connect(
+        process.env.DB_CONNECTION,
+      () => console.log("------> Mongoose is connected"),
+      {
+        useNewURLParser: true,
+        useUnifiedTopology: true,
+      }
+    )
+  } catch (e) {
+    console.log(e)
+    console.log("could not connect");
+  }
+
+// Connect to localhost
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
