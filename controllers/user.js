@@ -15,7 +15,7 @@ router.post('/createUsers', async (req, res) => {
         res.status(201).send({ userCreate, token })
     } catch (err) {
         res.status(400).send(err)
-        console.log(err);
+        console.log(err)
         res.json({
             message: err
         })
@@ -29,14 +29,14 @@ router.post('/login', async (req, res) => {
         const user = await User.findByCredentials(email, password)
         .catch(err => console.log('--------error----',err))
         if (!user) {
-            // console.log('----------USER-----------', user);
+            // console.log('----------USER-----------', user)
             return res.status(401).send({error: 'Login failed'})
         }
         const token = await user.generateAuthToken()
         res.send({ user, token })
     } catch(err) {
         res.status(400).send(err)
-        console.log(err);
+        console.log(err)
         res.json({
             message: err
         })
@@ -52,9 +52,9 @@ router.get('/users', async (req, res) => {
     }catch(err){
         res.json({
             message: err
-        });
-    };
-});
+        })
+    }
+})
 
 //User me
 router.get('/me', auth, async(req, res) => {
@@ -64,8 +64,8 @@ router.get('/me', auth, async(req, res) => {
     }catch(err){
         res.json({
             message: err
-        });
-    };
+        })
+    }
 })
 
 //User Logout
@@ -85,14 +85,14 @@ router.post('/me/logout', auth, async (req, res) => {
 //User Id
 router.get('/:userId', async (req, res) => {
     try{
-        const user = await User.findById(req.params.userId);
+        const user = await User.findById(req.params.userId)
         res.json(user)
     }catch(err){
         res.json({
             message: err
-        });
-    };
-}); 
+        })
+    }
+}) 
 
 //Update User
 router.patch('/:userId', async (req, res) =>{
@@ -100,27 +100,28 @@ router.patch('/:userId', async (req, res) =>{
         const updateUser = await User.updateOne(
             { _id : req.params.userId },
             { $set: { first_name : req.body.first_name}}
-            );
+            )
         res.json(updateUser)
     }catch(err){
         res.json({
             message: err
-        });
-    };
-});
+        })
+    }
+})
+
 //Delete User
 router.delete('/:userId', async (req, res) => {
     try{
         const removedUser = await User.remove({
             _id: req.params.userId 
-         });
-         res.json(removedUser);
+         })
+         res.json(removedUser)
     }catch(err){
         res.json({
             message: err
-        });
-    };
-});
+        })
+    }
+})
 
 
 module.exports = router

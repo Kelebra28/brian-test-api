@@ -32,7 +32,7 @@ try {
     )
   } catch (e) {
     console.log(e)
-    console.log("could not connect");
+    console.log("could not connect")
   }
 
 // Connect to localhost
