@@ -31,13 +31,10 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    testResults:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Test'
-    }],
     type: {
         type : String,
-        required : true
+        required : true,
+        default: 'user'
     },
     contacted: {
         type: Boolean,
@@ -48,7 +45,15 @@ const UserSchema = mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    test : [{
+        nameTest: {
+            type: String,
+        },
+        puntuation: {
+            type:  Number,
+        }
+    }],
 })
 
 UserSchema.pre('save', async function (next) {

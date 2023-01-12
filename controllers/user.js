@@ -1,13 +1,12 @@
 
 const express = require('express')
-
 const User = require('../models/User')
 const auth = require('../middleware/auth')
 
 const router = express.Router()
 
-   // Create a new user
-router.post('/createUsers', async (req, res) => {
+// Create a new user
+router.post('/createUser/', async (req, res) => {
     try {
         const user = new User(req.body)
         const userCreate =  await user.save()
@@ -22,14 +21,13 @@ router.post('/createUsers', async (req, res) => {
     }
 })
 
-//login user 
-router.post('/login', async (req, res) => {
+// Login user 
+router.post('/login/', async (req, res) => {
     try {
         const { email, password } = req.body
         const user = await User.findByCredentials(email, password)
         .catch(err => console.log('--------error----',err))
         if (!user) {
-            // console.log('----------USER-----------', user)
             return res.status(401).send({error: 'Login failed'})
         }
         const token = await user.generateAuthToken()
@@ -44,8 +42,8 @@ router.post('/login', async (req, res) => {
 
 })
 
-//All Users
-router.get('/users', async (req, res) => {
+// All Users
+router.get('/users/', async (req, res) => {
     try{
         const users = await User.find()
         res.json(users)
@@ -56,7 +54,7 @@ router.get('/users', async (req, res) => {
     }
 })
 
-//User me
+// User me
 router.get('/me', auth, async(req, res) => {
     try{
         res.send(req.user)
@@ -68,8 +66,8 @@ router.get('/me', auth, async(req, res) => {
     }
 })
 
-//User Logout
-router.post('/me/logout', auth, async (req, res) => {
+// User Logout
+router.post('/me/logout/', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token != req.token
@@ -82,8 +80,8 @@ router.post('/me/logout', auth, async (req, res) => {
 })
 
 
-//User Id
-router.get('/:userId', async (req, res) => {
+// User Id
+router.get('/:userId/', async (req, res) => {
     try{
         const user = await User.findById(req.params.userId)
         res.json(user)
@@ -94,8 +92,8 @@ router.get('/:userId', async (req, res) => {
     }
 }) 
 
-//Update User
-router.patch('/:userId', async (req, res) =>{
+// Update User
+router.patch('/:userId/', async (req, res) =>{
     try{
         const updateUser = await User.updateOne(
             { _id : req.params.userId },
@@ -109,8 +107,8 @@ router.patch('/:userId', async (req, res) =>{
     }
 })
 
-//Delete User
-router.delete('/:userId', async (req, res) => {
+// Delete User
+router.delete('/:userId/', async (req, res) => {
     try{
         const removedUser = await User.remove({
             _id: req.params.userId 

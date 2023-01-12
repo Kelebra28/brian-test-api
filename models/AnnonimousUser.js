@@ -5,16 +5,23 @@ const AnnonimousUserSchema = mongoose.Schema({
         type: String,
         required :  true
     },
-    test : [{
-        nameTest: {
-            type: String,
-            required: true
-        },
-        puntuation: {
-            type:  Number,
-            required: true
-        }
-    }]
+    test : {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    type: {
+        type : String,
+        required : true,
+        default: 'annonimousUser'
+    },
+    contacted: {
+        type: Boolean,
+        default: false
+    },
 });
 
 const AnnonimousUser = mongoose.model('AnnonimousUser', AnnonimousUserSchema);

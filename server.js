@@ -4,11 +4,11 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
-require('dotenv').config()
-
 //Modules
-
-const useRouters = require('./controllers/user')
+const userRouters = require('./controllers/user')
+const annonimousUserRouters = require('./controllers/annonimousUser')
+//env
+require('dotenv').config()
 
 
 const PORT = process.env.PORT || 3000
@@ -18,8 +18,9 @@ app.use(cors())
 // Home Route
 app.get('/', (req, res) => res.send ('Home'))
 // Users Routes
-app.use('/api', useRouters)
-
+app.use('/api', userRouters)
+// AnnonimosUser
+app.use('/api', annonimousUserRouters)
 
 try {
      mongoose.connect(
@@ -35,5 +36,5 @@ try {
     console.log("could not connect")
   }
 
-// Connect to localhost
+// Connect to Port
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
