@@ -26,7 +26,6 @@ router.post('/login/', async (req, res) => {
     try {
         const { email, password } = req.body
         const user = await User.findByCredentials(email, password)
-        .catch(err => console.log('--------error----',err))
         if (!user) {
             return res.status(401).send({error: 'Login failed'})
         }
