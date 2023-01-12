@@ -22,7 +22,6 @@ app.use('/api', useRouters)
 
 
 try {
-    // Connect to the MongoDB cluster
      mongoose.connect(
         process.env.DB_CONNECTION,
       () => console.log("------> Mongoose is connected"),
