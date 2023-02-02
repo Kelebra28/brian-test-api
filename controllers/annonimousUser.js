@@ -20,4 +20,22 @@ router.post('/createAnnonimousUser/', async (req, res) => {
     }
 })
 
+// All Anonnimos  Users
+router.get('/annonimousUsers/', async (req, res) => {
+    console.log('entra aqui');
+    console.log(req);
+    console.log(res);
+    try{
+        console.log(res);
+        const users = await AnnonimousUser.find()
+        console.log(users);
+        res.json(users)
+    }catch(err){
+        console.log(err);
+        res.json({
+            message: err
+        })
+    }
+})
+
 module.exports = router
